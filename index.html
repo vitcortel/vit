@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131f">
+  <title>Klocki — gra w stylu Tetrisa</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header><a class="brand" href="./">vit<span> / arcade</span></a><span class="badge">01 — KLOCKI</span></header>
+    <section class="intro"><p class="eyebrow">MAŁA PRZERWA. WIELKIE UKŁADANIE.</p><h1>Zrób miejsce<br>na <span>kolejny klocek.</span></h1><p>Układaj, obracaj, znikaj całymi liniami. Znasz zasady.</p></section>
+    <section class="game-layout" aria-label="Gra w spadające klocki">
+      <aside class="stats">
+        <div class="stat"><span>WYNIK</span><strong id="score">0</strong></div>
+        <div class="stat"><span>LINIE</span><strong id="lines">0</strong></div>
+        <div class="stat"><span>POZIOM</span><strong id="level">1</strong></div>
+        <div class="record"><span>TWÓJ REKORD</span><strong id="best">0</strong></div>
+      </aside>
+      <div class="board-wrap">
+        <canvas id="board" width="300" height="600" tabindex="0" aria-label="Plansza: 10 kolumn i 20 wierszy. Sterowanie opisane obok."></canvas>
+        <div class="overlay" id="overlay"><div><span class="overlay-icon">▦</span><h2 id="overlay-title">Gotowy na rundę?</h2><p id="overlay-text">Każda pełna linia to nowa przestrzeń.</p><button id="start" class="primary">Zagraj teraz <span>↗</span></button></div></div>
+      </div>
+      <aside class="side">
+        <div class="next-panel"><span class="label">NASTĘPNY</span><canvas id="next" width="150" height="120" aria-label="Podgląd następnego klocka"></canvas></div>
+        <button id="pause" class="secondary" disabled>Pauza <kbd>P</kbd></button>
+        <div class="controls"><span class="label">JAK GRAĆ</span><p><kbd>←</kbd><kbd>→</kbd><span>Przesuń</span></p><p><kbd>↑</kbd><span>Obróć</span></p><p><kbd>↓</kbd><span>Przyspiesz</span></p><p><kbd>Spacja</kbd><span>Zrzuć na dół</span></p><p><kbd>P</kbd><span>Pauza</span></p></div>
+        <p class="hint">Kontur na dole pokazuje,<br>gdzie wyląduje klocek.</p>
+      </aside>
+    </section>
+    <div class="touch-controls" aria-label="Przyciski sterowania"><button data-action="left" aria-label="Przesuń w lewo">←</button><button data-action="rotate" aria-label="Obróć">↻</button><button data-action="right" aria-label="Przesuń w prawo">→</button><button data-action="down" aria-label="Przesuń w dół">↓</button><button data-action="drop" aria-label="Zrzuć klocek">⤓</button></div>
+    <footer><span>Mały projekt. Pierwszy commit. Dużo możliwości.</span><a href="https://github.com/vitcortel/vit" target="_blank" rel="noopener noreferrer">Zobacz kod na GitHubie ↗</a></footer>
+    <p id="announcement" class="sr-only" aria-live="polite"></p>
+  </main>
+</body>
+</html>

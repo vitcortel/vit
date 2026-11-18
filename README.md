@@ -4,6 +4,29 @@ Repozytorium połączone z https://github.com/vitcortel/vit.
 
 Folder projektu na tym komputerze: `D:\github\vit`.
 
+## Zagraj w klocki
+
+Otwórz plik `index.html` w przeglądarce i kliknij **Zagraj teraz**.
+Nie trzeba nic instalować ani uruchamiać serwera. Gra korzysta z HTML, CSS i JavaScript.
+Strzałki przesuwają i obracają klocki, spacja zrzuca klocek, a **P** włącza pauzę.
+Na telefonie i myszą można używać przycisków pod planszą.
+
+- `index.html` — ekran gry i przyciski.
+- `style.css` — kolory, układ i wersja mobilna.
+- `game.js` — spadające klocki, linie, punkty, poziomy i rekord na tym urządzeniu.
+
+### Nauka GitHuba na tej grze
+
+1. W **History** pierwszy commit przygotowuje repozytorium, a kolejny dodaje grę.
+2. Otwórz `index.html` w edytorze i zmień tekst nagłówka. Zapisz plik.
+3. W **Changes** GitHub Desktop pokaże dokładnie usunięty i dodany tekst.
+4. Wpisz opis `Zmień tytuł gry` i kliknij **Commit to main**.
+5. Kliknij **Push origin**. Na stronie repozytorium pojawi się nowa wersja oraz jej historia.
+
+GitHub przechowuje kod. Do grania online można osobno włączyć **GitHub Pages**:
+w ustawieniach repozytorium wybierz **Pages → Deploy from a branch → main → /(root)**.
+Ta konfiguracja nie jest wymagana do grania na komputerze.
+
 ## Co jest czym?
 
 - **Git** zapisuje historię kolejnych wersji plików na komputerze.
