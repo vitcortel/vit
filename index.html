@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#10131f">
   <title>Klocki — gra w stylu Tetrisa</title>
   <link rel="stylesheet" href="style.css">
+  <script src="sound.js" defer></script>
   <script src="game.js" defer></script>
 </head>
 <body>
@@ -26,6 +27,7 @@
       <aside class="side">
         <div class="next-panel"><span class="label">NASTĘPNY</span><canvas id="next" width="150" height="120" aria-label="Podgląd następnego klocka"></canvas></div>
         <button id="pause" class="secondary" disabled>Pauza <kbd>P</kbd></button>
+        <button id="sound" class="secondary" aria-pressed="true"><span id="sound-label">Dźwięk: wł.</span><kbd>M</kbd></button>
         <div class="controls"><span class="label">JAK GRAĆ</span><p><kbd>←</kbd><kbd>→</kbd><span>Przesuń</span></p><p><kbd>↑</kbd><span>Obróć</span></p><p><kbd>↓</kbd><span>Przyspiesz</span></p><p><kbd>Spacja</kbd><span>Zrzuć na dół</span></p><p><kbd>P</kbd><span>Pauza</span></p></div>
         <p class="hint">Kontur na dole pokazuje,<br>gdzie wyląduje klocek.</p>
       </aside>
