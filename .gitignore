@@ -1,0 +1,19 @@
+# Lokalne ustawienia i sekrety
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+
+# Zależności i pamięć podręczna
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+Desktop.ini
