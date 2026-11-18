@@ -6,7 +6,7 @@ const SHAPES = [
   { color: '#829aff', cells: [[1,0,0],[1,1,1],[0,0,0]] },
   { color: '#ffb36b', cells: [[0,0,1],[1,1,1],[0,0,0]] },
   { color: '#f6d86b', cells: [[1,1],[1,1]] },
-  { color: '#b8f478', cells: [[0,1,1],[1,1,0],[0,0,0]] },
+  { color: '#8ed8ff', cells: [[0,1,1],[1,1,0],[0,0,0]] },
   { color: '#c295fa', cells: [[0,1,0],[1,1,1],[0,0,0]] },
   { color: '#ff8299', cells: [[1,1,0],[0,1,1],[0,0,0]] }
 ];
@@ -88,7 +88,7 @@ function showOverlay(title, text, button) {
   $('start').textContent = button; $('overlay').hidden = false;
   $('announcement').textContent = title + '. ' + text;
 }
-function lock() {
+function lock(placementSound = 'lock') {
   let overflow = false;
   active.cells.forEach((row,y) => row.forEach((v,x) => {
     if (!v) return;
@@ -104,12 +104,14 @@ function lock() {
     board = [...Array.from({length:cleared}, () => Array(COLS).fill(null)), ...remaining];
     $('announcement').textContent = `Usunięte linie: ${cleared}. Wynik: ${score}.`;
   }
+  gameAudio.play(cleared ? 'clear' : placementSound);
   active = upcoming; upcoming = nextPiece(); elapsed = 0;
   updateStats(); drawNext();
   if (collides(active)) endGame();
 }
 function endGame() {
   playing = false; paused = false; active = null; $('pause').disabled = true;
+  gameAudio.stop(); gameAudio.play('over');
   showOverlay('Jeszcze jedna runda?', `Twój wynik: ${score}. Usunięte linie: ${lines}.`, 'Zagraj ponownie ↗');
 }
 function step(manual = false) {
@@ -120,7 +122,7 @@ function step(manual = false) {
 function rotate() {
   const rotated = active.cells[0].map((_, i) => active.cells.map(row => row[i]).reverse());
   for (const dx of [0,-1,1,-2,2]) {
-    if (!collides(active, dx, 0, rotated)) { active.cells = rotated; active.x += dx; return; }
+    if (!collides(active, dx, 0, rotated)) { active.cells = rotated; active.x += dx; gameAudio.play('rotate'); return; }
   }
 }
 function action(name) {
@@ -132,7 +134,7 @@ function action(name) {
   if (name === 'drop') {
     let distance = 0;
     while (!collides(active, 0, 1)) { active.y++; distance++; }
-    score += distance * 2; lock();
+    score += distance * 2; lock('drop');
   }
   render();
 }
@@ -140,8 +142,8 @@ function togglePause() {
   if (!playing) return;
   paused = !paused; elapsed = 0;
   $('pause').innerHTML = paused ? 'Wznów <kbd>P</kbd>' : 'Pauza <kbd>P</kbd>';
-  if (paused) showOverlay('Chwila oddechu.', 'Twoje klocki nigdzie się nie wybierają.', 'Wróć do gry ↗');
-  else { $('overlay').hidden = true; $('board').focus({preventScroll:true}); }
+  if (paused) { gameAudio.stop(); showOverlay('Chwila oddechu.', 'Twoje klocki nigdzie się nie wybierają.', 'Wróć do gry ↗'); }
+  else { gameAudio.unlock(); $('overlay').hidden = true; $('board').focus({preventScroll:true}); }
 }
 function startGame() {
   if (playing && paused) { togglePause(); return; }
@@ -149,9 +151,12 @@ function startGame() {
   active = nextPiece(); upcoming = nextPiece(); playing = true; paused = false; elapsed = 0;
   $('overlay').hidden = true; $('pause').disabled = false; $('pause').innerHTML = 'Pauza <kbd>P</kbd>';
   updateStats(); drawNext(); render(); $('board').focus({preventScroll:true});
+  gameAudio.stop();
+  gameAudio.unlock().then(ready => { if (ready && playing && !paused) gameAudio.play('start'); });
 }
 const keys = {ArrowLeft:'left', ArrowRight:'right', ArrowUp:'rotate', ArrowDown:'down', Space:'drop'};
 document.addEventListener('keydown', event => {
+  if (event.code === 'KeyM') { event.preventDefault(); if (!event.repeat) gameAudio.toggle(); return; }
   if (!playing) return;
   if (event.code === 'KeyP' || event.code === 'Escape') { event.preventDefault(); if (!event.repeat) togglePause(); return; }
   if (keys[event.code]) { event.preventDefault(); if (event.repeat && (event.code === 'Space' || event.code === 'ArrowUp')) return; action(keys[event.code]); }

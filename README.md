@@ -10,10 +10,15 @@ Otwórz plik `index.html` w przeglądarce i kliknij **Zagraj teraz**.
 Nie trzeba nic instalować ani uruchamiać serwera. Gra korzysta z HTML, CSS i JavaScript.
 Strzałki przesuwają i obracają klocki, spacja zrzuca klocek, a **P** włącza pauzę.
 Na telefonie i myszą można używać przycisków pod planszą.
+Efekty dźwiękowe towarzyszą startowi, obrotowi, lądowaniu, zrzuceniu klocka,
+usuwaniu linii i końcowi gry. Przycisk **Dźwięk** lub klawisz **M** wycisza je;
+gra zapamiętuje wybór na tym urządzeniu. Dźwięk uruchamia się po kliknięciu
+**Zagraj teraz** i jest generowany w przeglądarce, bez dodatkowych plików audio.
 
 - `index.html` — ekran gry i przyciski.
 - `style.css` — kolory, układ i wersja mobilna.
 - `game.js` — spadające klocki, linie, punkty, poziomy i rekord na tym urządzeniu.
+- `sound.js` — efekty dźwiękowe i wyciszenie.
 
 ### Nauka GitHuba na tej grze
 
